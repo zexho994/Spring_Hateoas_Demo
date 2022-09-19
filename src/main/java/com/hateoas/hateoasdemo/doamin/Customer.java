@@ -1,6 +1,8 @@
 package com.hateoas.hateoasdemo.doamin;
 
-public class Customer {
+import org.springframework.hateoas.RepresentationModel;
+
+public class Customer extends RepresentationModel<Customer> {
 
     private String customerId;
 
