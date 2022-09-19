@@ -55,4 +55,22 @@ public class CustomerController {
         return CollectionModel.of(orders, link);
     }
 
+    @GetMapping
+    public CollectionModel<Customer> getAllCustomers() {
+        List<Customer> all = customerService.getAll();
+        for (Customer c : all) {
+            String customerId = c.getCustomerId();
+            Link selfLink = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(CustomerController.class)
+                    .getCustomerById(customerId)).withRel("self");
+            c.add(selfLink);
+            if (orderService.getAllOrdersByCustomer(customerId).size() > 0) {
+                Link allOrdersLink = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(CustomerController.class)
+                        .getOrdersByCustomer(customerId)).withRel("allOrders");
+                c.add(allOrdersLink);
+            }
+        }
+        Link link = WebMvcLinkBuilder.linkTo(CustomerController.class).withRel("self");
+        return CollectionModel.of(all, link);
+    }
+
 }
