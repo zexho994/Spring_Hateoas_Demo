@@ -1,8 +1,8 @@
 package com.hateoas.hateoasdemo.doamin;
 
-import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.RepresentationModel;
 
-public class Order extends EntityModel<Order> {
+public class Order extends RepresentationModel<Order> {
 
     private String orderId;
 
@@ -10,6 +10,11 @@ public class Order extends EntityModel<Order> {
 
     private Integer quantity;
 
+    public Order(String orderId, Double price, Integer quantity) {
+        this.orderId = orderId;
+        this.price = price;
+        this.quantity = quantity;
+    }
     public String getOrderId() {
         return orderId;
     }
